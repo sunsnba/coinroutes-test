@@ -36,13 +36,13 @@ const PriceChart = ({ midPrice, selectedPair }) => {
     <div>
       <h2 className="panel-title">Price Chart</h2>
 
-      <div style={{ width: '100%', height: 320 }}>
+      <div className="chart-wrap">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
-            margin={{ top: 8, right: 12, left: 28, bottom: 8 }}
+            margin={{ top: 8, right: 12, left: 28, bottom: 20 }}
           >
-            <CartesianGrid stroke="#f3f4f6" />
+            <CartesianGrid stroke="#1f2937" vertical={false} />
             <XAxis
               dataKey="time"
               minTickGap={40}
@@ -57,11 +57,19 @@ const PriceChart = ({ midPrice, selectedPair }) => {
             />
             <Tooltip
               formatter={(value) => Number(value).toFixed(2)}
+              contentStyle={{
+                backgroundColor: '#0f172a',
+                border: '1px solid #1f2937',
+                borderRadius: '8px',
+                color: '#e5e7eb',
+              }}
+              labelStyle={{ color: '#94a3b8' }}
             />
             <Line
               type="monotone"
               dataKey="price"
-              stroke="#2563eb"
+              stroke="#60a5fa"
+              strokeWidth={2}
               dot={false}
               isAnimationActive={false}
             />

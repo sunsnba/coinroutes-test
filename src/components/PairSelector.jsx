@@ -1,16 +1,35 @@
 const PAIRS = ['BTC-USD', 'ETH-USD', 'LTC-USD', 'BCH-USD'];
 
-const PairSelector = ({ selectedPair, onChange }) => {
+const PairSelector = ({ selectedPairs, onChange }) => {
+  const handleToggle = (pair) => {
+    if (selectedPairs.includes(pair)) {
+      const nextPairs = selectedPairs.filter((selectedPair) => selectedPair !== pair);
+      onChange(nextPairs);
+      return;
+    }
+
+    onChange([...selectedPairs, pair]);
+  };
+
   return (
     <div>
-      <label>Select Pair: </label>
-      <select value={selectedPair} onChange={(e) => onChange(e.target.value)}>
+      <div style={{ marginBottom: '8px', fontWeight: 600 }}>Select Pairs:</div>
+
+      <div style={{ display: 'grid', gap: '6px' }}>
         {PAIRS.map((pair) => (
-          <option key={pair} value={pair}>
-            {pair}
-          </option>
+          <label
+            key={pair}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+          >
+            <input
+              type="checkbox"
+              checked={selectedPairs.includes(pair)}
+              onChange={() => handleToggle(pair)}
+            />
+            <span>{pair}</span>
+          </label>
         ))}
-      </select>
+      </div>
     </div>
   );
 };

@@ -1,23 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import PairSelector from './components/PairSelector';
-import TopOfBook from './components/TopOfBook';
-import PriceChart from './components/PriceChart';
-import Ladder from './components/Ladder';
-import useCoinbaseWebSocket from './hooks/useCoinbaseWebSocket';
+import PairDashboard from './components/PairDashboard';
 
 const App = () => {
-  const [selectedPair, setSelectedPair] = useState('BTC-USD');
-  const orderBook = useCoinbaseWebSocket(selectedPair);
-
-  const midPrice = useMemo(() => {
-    const bestBid = orderBook?.bids?.[0];
-    const bestAsk = orderBook?.asks?.[0];
-
-    if (!bestBid || !bestAsk) return null;
-
-    return (bestBid.price + bestAsk.price) / 2;
-  }, [orderBook]);
+  const [selectedPairs, setSelectedPairs] = useState(['BTC-USD']);
 
   return (
     <div className="app">
@@ -27,25 +14,15 @@ const App = () => {
 
           <div className="selector-card">
             <PairSelector
-              selectedPair={selectedPair}
-              onChange={setSelectedPair}
+              selectedPairs={selectedPairs}
+              onChange={setSelectedPairs}
             />
           </div>
         </div>
 
-        <div className="top-row">
-          <div className="panel">
-            <TopOfBook orderBook={orderBook} />
-          </div>
-
-          <div className="panel">
-            <PriceChart midPrice={midPrice} selectedPair={selectedPair} />
-          </div>
-        </div>
-
-        <div className="panel">
-          <Ladder orderBook={orderBook} />
-        </div>
+        {selectedPairs.map((pair) => (
+          <PairDashboard key={pair} pair={pair} />
+        ))}
       </div>
     </div>
   );

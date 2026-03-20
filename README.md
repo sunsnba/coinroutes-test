@@ -1,16 +1,81 @@
-# React + Vite
+# CoinRoutes Trading Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a real-time trading dashboard I built using React and Coinbase’s WebSocket feed. It displays order book data, top-of-book pricing, and a live price chart for multiple crypto pairs.
 
-Currently, two official plugins are available:
+The goal was to build something simple, fast and readable that reflects how a real trading UI behaves with live market data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Real-time order book (Coinbase WebSocket - Level 2)
+- Multi-pair support (BTC-USD, ETH-USD, LTC-USD, BCH-USD)
+- Top of Book: best bid, best ask, spread
+- Live price chart
+- Order book ladder
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React (Vite)
+- Recharts (charting)
+- Coinbase WebSocket API (public market data)
+
+---
+
+## Getting Started
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run locally
+
+```bash
+npm run dev
+```
+
+Open:
+
+http://localhost:5173
+
+---
+
+## Architecture
+
+- App manages selected currency pairs
+- Each pair renders its own `PairDashboard`
+- `PairDashboard` owns:
+  - WebSocket connection
+  - order book state
+  - mid-price calculation
+- UI is split into small components:
+  - TopOfBook
+  - PriceChart
+  - Ladder
+
+## Data Flow
+
+- A WebSocket connection is established per selected pair
+- Data is received from Coinbase’s level2_batch channel
+- Order book state is initialized via snapshot
+- Order book is updated incrementally via l2update messages
+- Mid-price is derived from best bid/ask and fed into the chart
+
+## Tradeoffs
+
+- One WebSocket connection per pair
+- Simpler implementation
+- Chart uses mid-price instead of trade history
+- Lightweight and efficient, less precise than full trade data
+- Supported pairs are predefined
+- Could be extended dynamically
+
+## Potential Improvements
+
+- Consolidate multiple pairs into a single WebSocket connection
+- Add historical price data for richer charts
+- Persist selected pairs across sessions via localStorage

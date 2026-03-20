@@ -27,7 +27,7 @@ const TopOfBook = ({ orderBook }) => {
       <h2 className="panel-title">Top of Book</h2>
 
       <div className="top-book-grid">
-        <div>
+        <div className="top-book-stat">
           <div className="metric-label">Best Bid</div>
           <div className="top-book-value bid number">
             <span className="top-book-price">{formatPrice(bestBid?.price)}</span>
@@ -36,7 +36,7 @@ const TopOfBook = ({ orderBook }) => {
           </div>
         </div>
 
-        <div>
+        <div className="top-book-stat">
           <div className="metric-label">Best Ask</div>
           <div className="top-book-value ask number">
             <span className="top-book-price">{formatPrice(bestAsk?.price)}</span>
@@ -45,7 +45,7 @@ const TopOfBook = ({ orderBook }) => {
           </div>
         </div>
 
-        <div>
+        <div className="top-book-stat">
           <div className="metric-label">Spread</div>
           <div className="top-book-spread number">{spread}</div>
         </div>
