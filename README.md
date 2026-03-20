@@ -1,5 +1,8 @@
 # CoinRoutes Trading Dashboard
 
+<img width="1167" height="817" alt="Screenshot 2026-03-20 at 6 09 47 AM" src="https://github.com/user-attachments/assets/5c1affdf-e4f0-4310-a1e1-baaf7e0bf0a8" />
+
+
 This is a real-time trading dashboard I built using React and Coinbase’s WebSocket feed. It displays order book data, top-of-book pricing, and a live price chart for multiple crypto pairs.
 
 The goal was to build something simple, fast and readable that reflects how a real trading UI behaves with live market data.
