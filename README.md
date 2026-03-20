@@ -67,6 +67,7 @@ http://localhost:5173
 - Order book state is initialized via snapshot
 - Order book is updated incrementally via l2update messages
 - Mid-price is derived from best bid/ask and fed into the chart
+- Chart updates are throttled to ~2 seconds to prevent excessive re-renders
 
 ## Tradeoffs
 
